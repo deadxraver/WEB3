@@ -1,15 +1,14 @@
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 
 @ManagedBean(name = "bean")
-@ViewScoped
+@ApplicationScoped
 public class FormBean implements Serializable {
 	private double x;
-	private int y;
-	private int r;
+	private double y;
+	private double r;
 
-	// Геттеры и сеттеры
 	public double getX() {
 		return x;
 	}
@@ -18,26 +17,25 @@ public class FormBean implements Serializable {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
-	public int getR() {
+	public double getR() {
 		return r;
 	}
 
-	public void setR(int r) {
+	public void setR(double r) {
 		this.r = r;
 	}
 
-	// Метод обработки формы
 	public String submit() {
-		// Обработайте данные здесь
+
 		System.out.println("X: " + x + ", Y: " + y + ", R: " + r);
-		return null; // или навигация на другую страницу
+		return null;
 	}
 }

@@ -4,16 +4,51 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ace="http://www.icefaces.org/icefaces/components">
 <h:head>
-    <title>JSF LAB</title>
+    <title>есть в этом чате ХОТЬ ОДИН мой друг</title>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="icon" href="icon.jpg"/>
 </h:head>
-<h:body>
+<h:body styleClass="body">
+    <header>
+        <p style="color:green">Чумаченко Даниил Олегович</p>
+        <p style="color:red">P3215</p>
+        <p style="color:blue">3673133</p>
+    </header>
+    <h:form styleClass="form">
+        <table>
+            <tr>
+                <th>Поле</th>
+                <th>Значение</th>
+            </tr>
+            <tr>
+                <td><h:outputText value="X"/></td>
+                <td><ace:sliderEntry id="x" value="#{bean.x}" min="-2" max="2" showLabels="true"/></td>
+            </tr>
+            <tr>
+                <td><h:outputText value="Y"/></td>
+                <td><h:inputText id="y" value="#{bean.y}"
+                                 required="true"
+                                 validatorMessage="Значение Y должно быть от -5 до 3">
+                    <f:validateDoubleRange minimum="-5" maximum="3"/>
+                    <h:outputLabel for="y" value="Введите значение от -5 до 3"/>
+                </h:inputText></td>
+            </tr>
+            <tr>
+                <td><h:outputText value="R"/></td>
+                <td>
+                    <ace:sliderEntry id="r" value="#{bean.r}" min="2" max="5" showLabels="true"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center">
+                    <h:commandButton id="submit" value="Отправить" action="#{bean.submit}" styleClass="buttob"/>
+                </td>
+            </tr>
+        </table>
 
-    <ace:sliderEntry id="xSlider" min="1" max="5" showLabels="true">R
-        <!--        <ace:ajax event="slideEnd" execute="printX()"/>-->
-        <!--        render="sliderValueOutput"-->
-    </ace:sliderEntry>
-
+    </h:form>
 </h:body>
 <script src="scripts/index.js"> </script>
 </html>

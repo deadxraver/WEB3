@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class FormBean implements Serializable {
 	private double x;
 	private double y;
-	private double r;
+	private Double r;
 
 	public double getX() {
 		return x;
@@ -25,17 +25,17 @@ public class FormBean implements Serializable {
 		this.y = y;
 	}
 
-	public double getR() {
+	public Double getR() {
 		return r;
 	}
 
-	public void setR(double r) {
+	public void setR(Double r) {
 		this.r = r;
 	}
 
 	public String submit() {
 
-		System.out.println("X: " + x + ", Y: " + y + ", R: " + r);
+		System.out.println("X: " + x + ", Y: " + y + ", R: " + r / 4);
 		return null;
 	}
 }

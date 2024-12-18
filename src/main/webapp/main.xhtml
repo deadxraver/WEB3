@@ -1,14 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
 <h:head>
-
+   <title>есть в этом чате ХОТЬ ОДИН мой друг</title>
+   <meta charset="UTF-8"/>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <link rel="stylesheet" href="styles.css"/>
+   <link rel="icon" href="icon.jpg"/>
 </h:head>
-<h:body>
-   HELLO PLANETAM
+<h:body styleClass="body">
+   <script>
+      function enforcePrecision() {
+         let sliderR = document.getElementById('form:r');
+         if (sliderR) {
+            sliderR.addEventListener('change', function () {
+               this.value = parseFloat(this.value).toFixed(2); // Округление до двух знаков
+            });
+         }
+      }
+
+      window.onload = enforcePrecision;
+   </script>
+   <h:form styleClass="form">
+      <table>
+         <tr>
+            <th>Поле</th>
+            <th>Значение</th>
+         </tr>
+         <tr>
+            <td><h:outputText value="X"/></td>
+            <td><ace:sliderEntry id="x" value="#{bean.x}" min="-2" max="2" showLabels="true" stepPercent="25"/></td>
+         </tr>
+         <tr>
+            <td><h:outputText value="Y"/></td>
+            <td><h:inputText id="y" value="#{bean.y}"
+                             required="true"
+                             validatorMessage="Значение Y должно быть от -5 до 3">
+               <f:validateDoubleRange minimum="-5" maximum="3"/>
+               <h:outputLabel for="y" value="Введите значение от -5 до 3"/>
+            </h:inputText></td>
+         </tr>
+         <tr>
+            <td><h:outputText value="R"/></td>
+            <td>
+               <ace:sliderEntry id="r" value="#{bean.r}" min="8" max="20" stepPercent="8.333333333333333"/>
+               2-5
+            </td>
+         </tr>
+         <tr>
+            <td colspan="2" style="text-align: center">
+               <h:commandButton id="submit" value="Отправить" action="#{bean.submit}" styleClass="buttob"/>
+            </td>
+         </tr>
+      </table>
+
+   </h:form>
 </h:body>
+<script src="scripts/index.js"> </script>
 </html>

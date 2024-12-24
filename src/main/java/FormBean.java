@@ -1,18 +1,30 @@
+
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @ManagedBean(name = "bean")
 @ApplicationScoped
 public class FormBean implements Serializable {
-	@Inject
-	TableBean tableBean;
+	@ManagedProperty(value = "#{tableBean}")
+	private TableBean tableBean;
 
 	private double x;
 	private double y;
 	private double r;
+
+	public TableBean getTableBean() {
+		return tableBean;
+	}
+
+	public void setTableBean(TableBean tableBean) {
+		this.tableBean = tableBean;
+	}
 
 	public double getX() {
 		return x;
@@ -39,17 +51,17 @@ public class FormBean implements Serializable {
 	}
 
 	public void submit() {
-
 		double startTime = System.currentTimeMillis();
 		String currentTime = LocalDateTime.now().toLocalDate().toString();
 		r = r / 4;
 		System.out.println("X: " + x + ", Y: " + y + ", R: " + r);
 		if (!Validator.validateAll(x, y, r)) {
 			System.err.println("validation failed");
-			return ;
+			return;
 		}
 		boolean res = new Result(x, y, r).resultAll();
 		Dot dot = new Dot(x, y, r, res, System.currentTimeMillis() - startTime, currentTime);
+		r *= 4;
 		System.out.println(dot.toString());
 		tableBean.addDot(dot);
 	}

@@ -1,10 +1,12 @@
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@Named("points")
-@SessionScoped
+@ManagedBean(name = "points")
+@ApplicationScoped
 public class PointsStorageBean {
 	private final List<Dot> results = new CopyOnWriteArrayList<>();
 

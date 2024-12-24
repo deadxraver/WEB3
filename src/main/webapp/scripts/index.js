@@ -1,5 +1,3 @@
-// let widget = ice.ace.instance('xSlider');
-
-// function printX() {
-// 	console.log(widget.data);
-// }
+function handleRChange() {
+	console.log(ice.ace.instance("frm:r").getValue() / 4);
+}

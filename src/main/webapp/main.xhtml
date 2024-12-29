@@ -11,7 +11,7 @@
     <link rel="icon" href="icon.jpg"/>
     <script src="#{request.contextPath}/scripts/index.js"> </script>
 </h:head>
-<h:body styleClass="body">
+<h:body styleClass="body" id="mainbody">
     <h:form styleClass="form" id="frm">
         <table>
             <tr>
@@ -47,7 +47,7 @@
             </tr>
         </table>
 
-        <ace:dataTable value="#{points.results}" var="dot" styleClass="table" id="table">
+        <ace:dataTable value="#{dbBean.points}" var="dot" styleClass="table" id="table">
             <ace:column>
                 <f:facet name="header">X</f:facet>
                 <h:outputText value="#{dot.x}"/>

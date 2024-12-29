@@ -6,7 +6,7 @@
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>main-redirect</from-outcome>
+            <from-outcome>toMain</from-outcome>
             <to-view-id>/main.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
@@ -14,8 +14,9 @@
     <navigation-rule>
         <from-view-id>/main.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>index-redirect</from-outcome>
+            <from-outcome>toStartPage</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
 </faces-config>

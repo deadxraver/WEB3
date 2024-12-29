@@ -1,10 +1,8 @@
-
+import db.Dot;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

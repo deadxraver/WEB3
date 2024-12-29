@@ -1,7 +1,7 @@
+import db.Dot;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 

@@ -1,12 +1,31 @@
+package db;
+
+import javax.persistence.*;
+
 import java.io.Serializable;
 
+
+@Table(name = "Dot")
+@Entity
 public class Dot implements Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Column
 	private double x;
+	@Column
 	private double y;
+	@Column
 	private double r;
+	@Column
 	private boolean hit;
+	@Column(name = "exec_time")
 	private double execTime;
+	@Column(name = "cur_time")
 	private String currentTime;
+
+	public Dot() {
+	}
 
 	public Dot(double x, double y, double r, boolean hit, double execTime, String currentTime) {
 		this.x = x;

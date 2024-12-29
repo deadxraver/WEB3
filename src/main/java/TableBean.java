@@ -1,26 +1,26 @@
-import javax.enterprise.context.RequestScoped;
+import db.DBBean;
+import db.Dot;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 
 @ManagedBean(name = "tableBean")
 @ApplicationScoped
 public class TableBean implements Serializable {
-	@ManagedProperty(value = "#{points}")
-	private PointsStorageBean pointsStorageBean;
+	@ManagedProperty(value = "#{dbBean}")
+	private DBBean dbBean;
 
-	public PointsStorageBean getPointsStorageBean() {
-		return pointsStorageBean;
+	public DBBean getDbBean() {
+		return dbBean;
 	}
 
-	public void setPointsStorageBean(PointsStorageBean pointsStorageBean) {
-		this.pointsStorageBean = pointsStorageBean;
+	public void setDbBean(DBBean dbBean) {
+		this.dbBean = dbBean;
 	}
 
 	public void addDot(Dot dot) {
-		pointsStorageBean.addResult(dot);
+		dbBean.addDot(dot);
 	}
 }

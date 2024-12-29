@@ -12,9 +12,9 @@ public class FormBean implements Serializable {
 	@ManagedProperty(value = "#{tableBean}")
 	private TableBean tableBean;
 
-	private double x;
-	private double y;
-	private double r;
+	private double x = 0;
+	private double y = 0;
+	private double r = 8;
 
 	public TableBean getTableBean() {
 		return tableBean;

@@ -86,6 +86,6 @@ public class Dot implements Serializable {
 
 	@Override
 	public String toString() {
-		return "x: %f, y: %f, r: %f, hit: %b, execTime: %f, currentTime: %s".formatted(x, y, r, hit, execTime, currentTime);
+		return String.format("x: %f, y: %f, r: %f, hit: %b, execTime: %f, currentTime: %s", x, y, r, hit, execTime, currentTime);
 	}
 }

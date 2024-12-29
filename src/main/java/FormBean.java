@@ -60,7 +60,7 @@ public class FormBean implements Serializable {
 		boolean res = new Result(x, y, r).resultAll();
 		Dot dot = new Dot(x, y, r, res, System.currentTimeMillis() - startTime, currentTime);
 		r *= 4;
-		System.out.println(dot.toString());
+		System.out.println(dot);
 		tableBean.addDot(dot);
 	}
 }

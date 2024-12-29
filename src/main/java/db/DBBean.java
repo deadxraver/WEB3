@@ -27,10 +27,10 @@ public class DBBean implements Serializable {
 			entityManager.getTransaction().begin();
 			points = entityManager.createQuery("SELECT p FROM Dot p", Dot.class).getResultList();
 			entityManager.getTransaction().commit();
-			System.out.println("Загружено точек: " + points.size());
+			System.out.println("added point");
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
-			e.printStackTrace();
+			System.err.println("failed to load");
 		}
 	}
 
@@ -42,8 +42,22 @@ public class DBBean implements Serializable {
 			loadFromDB();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
-			e.printStackTrace();
+			System.err.println("failed to add");
 		}
+	}
+
+	public void clear(){
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.createQuery("DELETE FROM Dot").executeUpdate();
+			entityManager.getTransaction().commit();
+			points.clear();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			System.err.println("failed to clear");
+		}
+		points.clear();
+		System.out.println("cleared");
 	}
 
 	public void close() {

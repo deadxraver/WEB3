@@ -9,9 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="styles.css"/>
     <link rel="icon" href="icon.jpg"/>
+    <script src="#{request.contextPath}/scripts/CanvasDrawer.js"> </script>
     <script src="#{request.contextPath}/scripts/index.js"> </script>
 </h:head>
 <h:body styleClass="body" id="mainbody">
+    <h:link value="ТАК А КОТОРЫЙ ЧАС" outcome="toStartPage"/>
     <h:form styleClass="form" id="frm">
         <table>
             <tr>
@@ -46,7 +48,12 @@
                 </td>
             </tr>
         </table>
-
+        <div class="image-container" style="text-align: center">
+            <h3>График области</h3>
+            <canvas id="canvas" width="450px" height="450px"> </canvas>
+        </div>
+        <h:commandButton id="clearButton" value="нет ну честно уже ПЕРЕБОР" style="text-align: center"
+                         action="#{dbBean.clear}"/>
         <ace:dataTable value="#{dbBean.points}" var="dot" styleClass="table" id="table">
             <ace:column>
                 <f:facet name="header">X</f:facet>

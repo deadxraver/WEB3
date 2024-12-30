@@ -26,6 +26,14 @@ class CanvasDrawer {
 			graphY = graphY.toFixed(3);
 
 			console.log(graphX, graphY);
+			window.x = document.getElementById("hid_frm:x_hid").value;
+			window.y = document.getElementById("hid_frm:y_hid").value;
+			document.getElementById("hid_frm:x_hid").value = graphX;
+			document.getElementById("hid_frm:y_hid").value = graphY;
+			window.tableLength = document.getElementById("frm:table").querySelectorAll("tr td").length;
+			console.log(document.getElementById("frm:table").querySelectorAll("tr td").length);
+			document.getElementById("hid_frm:hid_submit").click();
+			console.log(document.getElementById("frm:table").querySelectorAll("tr td").length);
 		});
 	}
 

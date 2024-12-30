@@ -27,7 +27,8 @@
             <tr>
                 <td><h:outputText value="Y"/></td>
                 <td><h:inputText id="y" value="#{bean.y}"
-                                 required="true"
+                                
+                                 type="number"
                                  validatorMessage="Значение Y должно быть от -5 до 3">
                     <f:validateDoubleRange minimum="-5" maximum="3"/>
                     <h:outputLabel for="y" value="Введите значение от -5 до 3"/>
@@ -48,6 +49,8 @@
                 </td>
             </tr>
         </table>
+        
+        
         <div class="image-container" style="text-align: center">
             <h3>График области</h3>
             <canvas id="canvas" width="450px" height="450px"> </canvas>
@@ -80,7 +83,13 @@
                 <h:outputText value="#{dot.execTime} ms"/>
             </ace:column>
         </ace:dataTable>
+    </h:form>
 
+    <h:form id="hid_frm">
+        <h:inputHidden id="x_hid" value="#{bean.hiddenX}"/>
+        <h:inputHidden id="y_hid" value="#{bean.hiddenY}"/>
+        <h:inputHidden id="r_hid" value="#{bean.r}"/>
+        <h:commandButton id="hid_submit" action="#{bean.submit}" style="display: none"/>
     </h:form>
 </h:body>
 </html>

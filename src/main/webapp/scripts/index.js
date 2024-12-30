@@ -6,5 +6,4 @@ function handleRChange() {
 document.addEventListener("DOMContentLoaded", () => {
 	window.canvasDrawer = new CanvasDrawer();
 	window.canvasDrawer.redrawAll(ice.ace.instance("frm:r").getValue() / 4);
-
 });

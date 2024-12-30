@@ -70,8 +70,8 @@ public class FormBean implements Serializable {
 		double startTime = System.currentTimeMillis();
 		String currentTime = LocalDateTime.now().toLocalDate().toString();
 		r = r / 4;
-		System.out.println("X: " + x + ", Y: " + y + ", R: " + r);
 		if (hiddenX != -1000 && hiddenY != -1000) {
+			System.out.println("X: " + hiddenX + ", Y: " + hiddenY + ", R: " + r);
 			if (Validator.validateAll(hiddenX, hiddenY, r)) {
 				boolean res = new Result(hiddenX, hiddenY, r).resultAll();
 				Dot dot = new Dot(hiddenX, hiddenY, r, res, System.currentTimeMillis() - startTime, currentTime);
@@ -83,6 +83,7 @@ public class FormBean implements Serializable {
 			hiddenY = -1000;
 			return;
 		}
+		System.out.println("X: " + x + ", Y: " + y + ", R: " + r);
 		if (!Validator.validateAll(x, y, r)) {
 			System.err.println("validation failed");
 			return;

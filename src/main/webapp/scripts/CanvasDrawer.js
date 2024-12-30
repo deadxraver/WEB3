@@ -26,9 +26,10 @@ class CanvasDrawer {
 			graphY = graphY.toFixed(3);
 
 			console.log(graphX, graphY);
-			document.getElementById("frm:x_hid").value = graphX;
-			document.getElementById("frm:y_hid").value = graphY;
-			document.getElementById("frm:submit").click();
+			document.getElementById("frm_hid:x_hid").value = graphX;
+			document.getElementById("frm_hid:y_hid").value = graphY;
+			document.getElementById("frm_hid:r_hid").value = ice.ace.instance('frm:r').getValue();
+			document.getElementById("frm_hid:submit_hid").click();
 			this.drawLast();
 		});
 	}

@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="styles.css"/>
     <link rel="icon" href="icon.jpg"/>
-    <script src="#{request.contextPath}/scripts/CanvasDrawer.js"> </script>
-    <script src="#{request.contextPath}/scripts/index.js"> </script>
+    <script src="#{request.contextPath}/scripts/CanvasDrawer.js"></script>
+    <script src="#{request.contextPath}/scripts/index.js"></script>
 </h:head>
 <h:body styleClass="body" id="mainbody">
     <h:link value="ТАК А КОТОРЫЙ ЧАС" outcome="toStartPage"/>
@@ -45,18 +45,20 @@
             <tr>
                 <td colspan="2" style="text-align: center">
                     <h:commandButton id="submit" value="Отправить" action="#{bean.submit}" styleClass="buttob"
-                    onclick="window.canvasDrawer.drawLast()"/>
+                                     onclick="window.canvasDrawer.drawLast()"/>
                 </td>
             </tr>
         </table>
-        
-        
+
+
         <div class="image-container" style="text-align: center">
             <h3>График области</h3>
-            <canvas id="canvas" width="450px" height="450px"> </canvas>
+            <canvas id="canvas" width="450px" height="450px">
+            </canvas>
         </div>
         <h:commandButton id="clearButton" value="нет ну честно уже ПЕРЕБОР" style="text-align: center"
-                         action="#{dbBean.clear}" onclick="setTimeout(()=>{window.canvasDrawer.redrawAll(ice.ace.instance('frm:r').getValue() / 4)}, 400)">
+                         action="#{dbBean.clear}"
+                         onclick="setTimeout(()=>{window.canvasDrawer.redrawAll(ice.ace.instance('frm:r').getValue() / 4)}, 400)">
         </h:commandButton>
         <ace:dataTable value="#{dbBean.points}" var="dot" styleClass="table" id="table">
             <ace:column>
@@ -84,8 +86,16 @@
                 <h:outputText value="#{dot.execTime} ms"/>
             </ace:column>
         </ace:dataTable>
-        <h:inputHidden id="x_hid" value="#{bean.hiddenX}" validatorMessage="Значение X должно быть от -2 до 2"><f:validateDoubleRange minimum="-2" maximum="2"/></h:inputHidden>
-        <h:inputHidden id="y_hid" value="#{bean.hiddenY}" validatorMessage="Значение Y должно быть от -5 до 3"><f:validateDoubleRange minimum="-5" maximum="3"/></h:inputHidden>
+    </h:form>
+    <h:form id="frm_hid">
+        <h:inputHidden id="x_hid" value="#{bean.hiddenX}"
+                       validatorMessage="Значение X должно быть от -2 до 2"><f:validateDoubleRange minimum="-2"
+                                                                                                   maximum="2"/></h:inputHidden>
+        <h:inputHidden id="y_hid" value="#{bean.hiddenY}"
+                       validatorMessage="Значение Y должно быть от -5 до 3"><f:validateDoubleRange minimum="-5"
+                                                                                                   maximum="3"/></h:inputHidden>
+        <h:inputHidden id="r_hid" value="#{bean.r}"/>
+        <h:commandButton id="submit_hid" action='#{bean.submit}' onclick="window.canvasDrawer.drawLast()" style="display: none"/>
     </h:form>
 </h:body>
 </html>

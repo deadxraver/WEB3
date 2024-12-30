@@ -27,7 +27,6 @@
             <tr>
                 <td><h:outputText value="Y"/></td>
                 <td><h:inputText id="y" value="#{bean.y}"
-                                
                                  type="number"
                                  validatorMessage="Значение Y должно быть от -5 до 3">
                     <f:validateDoubleRange minimum="-5" maximum="3"/>
@@ -85,8 +84,8 @@
                 <h:outputText value="#{dot.execTime} ms"/>
             </ace:column>
         </ace:dataTable>
-        <h:inputHidden id="x_hid" value="#{bean.hiddenX}"/>
-        <h:inputHidden id="y_hid" value="#{bean.hiddenY}"/>
+        <h:inputHidden id="x_hid" value="#{bean.hiddenX}" validatorMessage="Значение X должно быть от -2 до 2"><f:validateDoubleRange minimum="-2" maximum="2"/></h:inputHidden>
+        <h:inputHidden id="y_hid" value="#{bean.hiddenY}" validatorMessage="Значение Y должно быть от -5 до 3"><f:validateDoubleRange minimum="-5" maximum="3"/></h:inputHidden>
     </h:form>
 </h:body>
 </html>

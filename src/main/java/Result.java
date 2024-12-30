@@ -20,7 +20,7 @@ public class Result {
 	}
 
 	private boolean fourth() {
-		return x <= 0 && y >= 0 && x / 2 - r >= y;
+		return x <= 0 && y >= 0 && x / 2 + r / 2 >= y;
 	}
 
 	public boolean resultAll() {

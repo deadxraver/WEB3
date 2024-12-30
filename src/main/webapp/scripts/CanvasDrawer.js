@@ -30,7 +30,6 @@ class CanvasDrawer {
 			document.getElementById("frm:y_hid").value = graphY;
 			document.getElementById("frm:submit").click();
 			this.drawLast();
-
 		});
 	}
 
@@ -39,16 +38,14 @@ class CanvasDrawer {
 			const table = document.getElementById("frm:table");
 			const rows = table.querySelectorAll("tbody tr");
 			let points = [];
-
 			rows.forEach(row => {
 				const cells = row.querySelectorAll("td");
 				const x = parseFloat(cells[0].textContent.trim());
 				const y = parseFloat(cells[1].textContent.trim());
 				const r = parseFloat(cells[2].textContent.trim());
 				const hit = cells[3].textContent.trim().toLowerCase() === 'true';
-				points.push({ x, y, r, hit });
+				points = { x, y, r, hit };
 			});
-			points = points[points.length - 1];
 			this.drawPoint(points.x, points.y, points.hit, false);
 
 		}, 500);
@@ -91,12 +88,14 @@ class CanvasDrawer {
 
 		this.ctx.fillStyle = `rgba(${rColor},${gColor},${bColor},0.35)`;
 
-		this.ctx.fillRect(this.SIZE / 2 - r * this.pointInPixels, this.SIZE / 2 - r * pointInPixels, r * pointInPixels, r * pointInPixels);
+		// прямоугольник
+		this.ctx.fillRect(this.SIZE / 2 - r * this.pointInPixels, this.SIZE / 2 + r / 2 * pointInPixels, r * pointInPixels, -r / 2 * pointInPixels);
 
+		// треугольник
 		this.ctx.beginPath();
 		this.ctx.moveTo(this.SIZE / 2, this.SIZE / 2);
-		this.ctx.lineTo(this.SIZE / 2 + r / 2 * this.pointInPixels, this.SIZE / 2);
-		this.ctx.lineTo(this.SIZE / 2, this.SIZE / 2 + r / 2 * this.pointInPixels);
+		this.ctx.lineTo(this.SIZE / 2 - r * this.pointInPixels, this.SIZE / 2);
+		this.ctx.lineTo(this.SIZE / 2, this.SIZE / 2 - r /2 * this.pointInPixels);
 		this.ctx.lineTo(this.SIZE / 2, this.SIZE / 2);
 		this.ctx.fill();
 
@@ -105,14 +104,14 @@ class CanvasDrawer {
 		this.ctx.arc(
 			this.SIZE / 2,
 			this.SIZE / 2,
-			r * this.pointInPixels,
+			r / 2 * this.pointInPixels,
 			0,
 			-Math.PI / 2,
 			true
 		);
 		this.ctx.moveTo(this.SIZE / 2, this.SIZE / 2);
-		this.ctx.lineTo(this.SIZE / 2, this.SIZE / 2 - r * this.pointInPixels);
-		this.ctx.lineTo(this.SIZE / 2 + r * this.pointInPixels, this.SIZE / 2);
+		this.ctx.lineTo(this.SIZE / 2, this.SIZE / 2 - r / 2 * this.pointInPixels);
+		this.ctx.lineTo(this.SIZE / 2 + r / 2 * this.pointInPixels, this.SIZE / 2);
 		this.ctx.lineTo(this.SIZE / 2, this.SIZE / 2);
 		this.ctx.fill();
 	}

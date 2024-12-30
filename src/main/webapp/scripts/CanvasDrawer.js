@@ -26,25 +26,51 @@ class CanvasDrawer {
 			graphY = graphY.toFixed(3);
 
 			console.log(graphX, graphY);
-			window.x = document.getElementById("hid_frm:x_hid").value;
-			window.y = document.getElementById("hid_frm:y_hid").value;
-			document.getElementById("hid_frm:x_hid").value = graphX;
-			document.getElementById("hid_frm:y_hid").value = graphY;
-			window.tableLength = document.getElementById("frm:table").querySelectorAll("tr td").length;
-			console.log(document.getElementById("frm:table").querySelectorAll("tr td").length);
-			document.getElementById("hid_frm:hid_submit").click();
-			console.log(document.getElementById("frm:table").querySelectorAll("tr td").length);
+			document.getElementById("frm:x_hid").value = graphX;
+			document.getElementById("frm:y_hid").value = graphY;
+			document.getElementById("frm:submit").click();
+			this.drawLast();
+
 		});
 	}
 
-	redrawAll(r = 1) {
+	drawLast() {
+		setTimeout(() => {
+			const table = document.getElementById("frm:table");
+			const rows = table.querySelectorAll("tbody tr");
+			let points = [];
+
+			rows.forEach(row => {
+				const cells = row.querySelectorAll("td");
+				const x = parseFloat(cells[0].textContent.trim());
+				const y = parseFloat(cells[1].textContent.trim());
+				const r = parseFloat(cells[2].textContent.trim());
+				const hit = cells[3].textContent.trim().toLowerCase() === 'true';
+				points.push({ x, y, r, hit });
+			});
+			points = points[points.length - 1];
+			this.drawPoint(points.x, points.y, points.hit, false);
+
+		}, 500);
+	}
+
+	redrawAll() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		this.drawGraph(r);
+		this.drawGraph(ice.ace.instance('frm:r').getValue() / 4);
 		this.drawAxes();
 		this.setPointerAtDot(5);
 		this.setPointerAtDot(1);
-		this.dots.forEach(e => {
-			this.drawPoint(e.x, e.y, e.hit && (e.hit !== "Нет("), false);
+
+		const table = document.getElementById("frm:table");
+		const rows = table.querySelectorAll("tbody tr");
+		rows.forEach(row => {
+			const cells = row.querySelectorAll("td");
+			const x = parseFloat(cells[0].textContent.trim());
+			const y = parseFloat(cells[1].textContent.trim());
+			const r = parseFloat(cells[2].textContent.trim());
+			const hit = cells[3].textContent.trim().toLowerCase() === 'true';
+			console.log(`r: ${r}, rS: ${ice.ace.instance('frm:r').getValue() / 4}`);
+			if (r === ice.ace.instance("frm:r").getValue() / 4) this.drawPoint(x, y, hit);
 		});
 	}
 

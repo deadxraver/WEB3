@@ -24,6 +24,6 @@ public class Result {
 	}
 
 	public boolean resultAll() {
-		return first() && second() && third() && fourth();
+		return first() || second() || third() || fourth();
 	}
 }

@@ -45,7 +45,8 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center">
-                    <h:commandButton id="submit" value="Отправить" action="#{bean.submit}" styleClass="buttob"/>
+                    <h:commandButton id="submit" value="Отправить" action="#{bean.submit}" styleClass="buttob"
+                    onclick="window.canvasDrawer.drawLast()"/>
                 </td>
             </tr>
         </table>
@@ -56,7 +57,8 @@
             <canvas id="canvas" width="450px" height="450px"> </canvas>
         </div>
         <h:commandButton id="clearButton" value="нет ну честно уже ПЕРЕБОР" style="text-align: center"
-                         action="#{dbBean.clear}"/>
+                         action="#{dbBean.clear}" onclick="setTimeout(()=>{window.canvasDrawer.redrawAll(ice.ace.instance('frm:r').getValue() / 4)}, 400)">
+        </h:commandButton>
         <ace:dataTable value="#{dbBean.points}" var="dot" styleClass="table" id="table">
             <ace:column>
                 <f:facet name="header">X</f:facet>
@@ -83,13 +85,8 @@
                 <h:outputText value="#{dot.execTime} ms"/>
             </ace:column>
         </ace:dataTable>
-    </h:form>
-
-    <h:form id="hid_frm">
         <h:inputHidden id="x_hid" value="#{bean.hiddenX}"/>
         <h:inputHidden id="y_hid" value="#{bean.hiddenY}"/>
-        <h:inputHidden id="r_hid" value="#{bean.r}"/>
-        <h:commandButton id="hid_submit" action="#{bean.submit}" style="display: none"/>
     </h:form>
 </h:body>
 </html>

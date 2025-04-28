@@ -12,7 +12,7 @@ SOURCE=$(HOME_DIR)/src/main/java/db/*.java ./src/main/java/*.java
 WEBAPP=$(HOME_DIR)/src/main/webapp
 LIB=$(TARGET)/lib
 CLASS_PATH=$(TARGET)/classes
-WAR_COMPONENTS=$(TARGET)/war/WEB-INF
+WAR_COMPONENTS=$(TARGET)/war/components
 WAR_TARGET=$(TARGET)/war/target
 URL=https://repo1.maven.org/maven2
 
@@ -23,10 +23,10 @@ compile: $(SOURCE) download-libs
 	$(JAVAC) $(SOURCE) -d $(CLASS_PATH) -cp $(LIB)/\*
 
 build: compile
-	mkdir -p $(WAR_COMPONENTS)/classes/
-	cp -r $(CLASS_PATH)/* $(WAR_COMPONENTS)/classes
-	mkdir -p $(WAR_COMPONENTS)/lib/
-	cp -r $(LIB)/* $(WAR_COMPONENTS)/lib
+	mkdir -p $(WAR_COMPONENTS)/WEB-INF/classes/
+	cp -r $(CLASS_PATH)/* $(WAR_COMPONENTS)/WEB-INF/classes
+	mkdir -p $(WAR_COMPONENTS)/WEB-INF/lib/
+	cp -r $(LIB)/* $(WAR_COMPONENTS)/WEB-INF/lib
 	cp -r $(WEBAPP)/* $(WAR_COMPONENTS)
 	$(JAR) $(JAR_FLAGS) $(WAR_TARGET)/$(APP_NAME) -C $(WAR_COMPONENTS) . && echo "Successfully builded to " $(WAR_TARGET)/$(APP_NAME)
 

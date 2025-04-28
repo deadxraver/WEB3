@@ -2,15 +2,18 @@
 
 APP_NAME=app.war
 
+TARGET_VERSION=8
 JAVAC=javac
 JAVA=java
 JAR=jar
 JAR_FLAGS=-cvf
 HOME_DIR=$(PWD)
+JAVAC_FLAGS=--release $(TARGET_VERSION)
 TARGET=$(HOME_DIR)/build
 SOURCE=$(HOME_DIR)/src/main/java/db/*.java ./src/main/java/*.java
 WEBAPP=$(HOME_DIR)/src/main/webapp
 LIB=$(TARGET)/lib
+USR_LIB=$(HOME_DIR)/usr_lib
 CLASS_PATH=$(TARGET)/classes
 WAR_COMPONENTS=$(TARGET)/war/components
 WAR_TARGET=$(TARGET)/war/target
@@ -20,7 +23,7 @@ clean:
 	rm -rf $(TARGET)
 
 compile: $(SOURCE) download-libs
-	$(JAVAC) $(SOURCE) -d $(CLASS_PATH) -cp $(LIB)/\*
+	$(JAVAC) $(JAVAC_FLAGS) $(SOURCE) -d $(CLASS_PATH) -cp $(LIB)/\*
 
 build: compile
 	mkdir -p $(WAR_COMPONENTS)/WEB-INF/classes/
@@ -46,3 +49,30 @@ download-libs:
     $(URL)/org/postgresql/postgresql/42.7.4/postgresql-42.7.4.jar
 	@test -f $(LIB)/validation-api-2.0.1.Final.jar || curl -L -o $(LIB)/validation-api-2.0.1.Final.jar \
     $(URL)/javax/validation/validation-api/2.0.1.Final/validation-api-2.0.1.Final.jar
+	#
+	@test -f $(LIB)/antlr-2.7.7.jar || curl -L -o $(LIB)/antlr-2.7.7.jar \
+		$(URL)/antlr/antlr/2.7.7/antlr-2.7.7.jar
+	@test -f $(LIB)/byte-buddy-1.8.12.jar || curl -L -o $(LIB)/byte-buddy-1.8.12.jar \
+		$(URL)/net/bytebuddy/byte-buddy/1.8.12/byte-buddy-1.8.12.jar
+	@test -f $(LIB)/checker-qual-3.42.0.jar || curl -L -o $(LIB)/checker-qual-3.42.0.jar \
+		$(URL)/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar
+	@test -f $(LIB)/classmate-1.3.4.jar || curl -L -o $(LIB)/classmate-1.3.4.jar \
+		$(URL)/com/fasterxml/classmate/1.3.4/classmate-1.3.4.jar
+
+	#@test -f $(LIB)/dom4j-1.6.1.jar || wget -O $(LIB)/dom4j-1.6.1.jar \
+	#$(URL)/org/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+
+	#@test -f $(LIB)/hibernate-commons-annotations-5.0.3.Final.jar || wget -O $(LIB)/hibernate-commons-annotations-5.0.3.Final.jar \
+	#	$(URL)/org/hibernate/hibernate-commons-annotations/5.0.3.Final/hibernate-commons-annotations-5.0.3.Final.jar
+
+	@test -f $(LIB)/icefaces-4.3.0.jar || curl -L -o $(LIB)/icefaces-4.3.0.jar \
+		$(URL)/org/icefaces/icefaces/4.3.0/icefaces-4.3.0.jar
+	@test -f $(LIB)/javassist-3.22.0-GA.jar || curl -L -o $(LIB)/javassist-3.22.0-GA.jar \
+		$(URL)/org/javassist/javassist/3.22.0-GA/javassist-3.22.0-GA.jar
+	@test -f $(LIB)/jboss-logging-3.3.2.Final.jar || curl -L -o $(LIB)/jboss-logging-3.3.2.Final.jar \
+		$(URL)/org/jboss/logging/jboss-logging/3.3.2.Final/jboss-logging-3.3.2.Final.jar
+	@test -f $(LIB)/jboss-transaction-api_1.2_spec-1.1.1.Final.jar || curl -L -o $(LIB)/jboss-transaction-api_1.2_spec-1.1.1.Final.jar \
+		$(URL)/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.1.1.Final/jboss-transaction-api_1.2_spec-1.1.1.Final.jar
+	@test -f $(LIB)/jandex-2.0.3.Final.jar || curl -L -o $(LIB)/jandex-2.0.3.Final.jar \
+		$(URL)/org/jboss/jandex/2.0.3.Final/jandex-2.0.3.Final.jar
+	cp -r $(USR_LIB)/* $(LIB)

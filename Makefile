@@ -2,6 +2,11 @@
 
 APP_NAME=app.war
 
+SCP_SERVER=se.ifmo.ru
+SCP_USERNAME=s409853
+SPC_PATH=~/wildfly-20.0.1.Final/standalone/deployments
+SCP_PORT=2222
+
 TARGET_VERSION=8
 JAVAC=javac
 JAVA=java
@@ -46,6 +51,9 @@ music: build
 	@echo "🎵"
 	@sleep 1
 	@echo "🎵"
+
+scp: build
+	scp -P $(SCP_PORT) $(WAR_TARGET)/$(APP_NAME) $(SCP_USERNAME)@$(SCP_SERVER):$(SPC_PATH)/$(APP_NAME)
 
 test: build
 	# TODO: 

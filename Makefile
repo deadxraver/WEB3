@@ -1,4 +1,4 @@
-.PHONY: clean download-libs
+.PHONY: clean download-libs help
 
 APP_NAME=app.war
 
@@ -18,6 +18,13 @@ CLASS_PATH=$(TARGET)/classes
 WAR_COMPONENTS=$(TARGET)/war/components
 WAR_TARGET=$(TARGET)/war/target
 URL=https://repo1.maven.org/maven2
+
+help:
+	@echo "Available targets:"
+	@echo " - clean"
+	@echo " - compile"
+	@echo " - build"
+	@echo " - music"
 
 clean:
 	rm -rf $(TARGET)

@@ -30,6 +30,7 @@ help:
 	@echo " - compile"
 	@echo " - build"
 	@echo " - music"
+	@echo " - scp"
 
 clean:
 	rm -rf $(TARGET)

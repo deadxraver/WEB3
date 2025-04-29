@@ -31,7 +31,17 @@ build: compile
 	mkdir -p $(WAR_COMPONENTS)/WEB-INF/lib/
 	cp -r $(LIB)/* $(WAR_COMPONENTS)/WEB-INF/lib
 	cp -r $(WEBAPP)/* $(WAR_COMPONENTS)
-	$(JAR) $(JAR_FLAGS) $(WAR_TARGET)/$(APP_NAME) -C $(WAR_COMPONENTS) . && echo "Successfully builded to " $(WAR_TARGET)/$(APP_NAME)
+	$(JAR) $(JAR_FLAGS) $(WAR_TARGET)/$(APP_NAME) -C $(WAR_COMPONENTS) . && echo "Successfully built to " $(WAR_TARGET)/$(APP_NAME)
+
+music: build
+	@echo "🎵"
+	@sleep 1
+	@echo "🎵"
+	@sleep 1
+	@echo "🎵"
+
+test: build
+	# TODO: 
 
 download-libs:
 	mkdir -p $(LIB)
@@ -49,7 +59,6 @@ download-libs:
     $(URL)/org/postgresql/postgresql/42.7.4/postgresql-42.7.4.jar
 	@test -f $(LIB)/validation-api-2.0.1.Final.jar || curl -L -o $(LIB)/validation-api-2.0.1.Final.jar \
     $(URL)/javax/validation/validation-api/2.0.1.Final/validation-api-2.0.1.Final.jar
-	#
 	@test -f $(LIB)/antlr-2.7.7.jar || curl -L -o $(LIB)/antlr-2.7.7.jar \
 		$(URL)/antlr/antlr/2.7.7/antlr-2.7.7.jar
 	@test -f $(LIB)/byte-buddy-1.8.12.jar || curl -L -o $(LIB)/byte-buddy-1.8.12.jar \
@@ -58,13 +67,6 @@ download-libs:
 		$(URL)/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar
 	@test -f $(LIB)/classmate-1.3.4.jar || curl -L -o $(LIB)/classmate-1.3.4.jar \
 		$(URL)/com/fasterxml/classmate/1.3.4/classmate-1.3.4.jar
-
-	#@test -f $(LIB)/dom4j-1.6.1.jar || wget -O $(LIB)/dom4j-1.6.1.jar \
-	#$(URL)/org/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
-
-	#@test -f $(LIB)/hibernate-commons-annotations-5.0.3.Final.jar || wget -O $(LIB)/hibernate-commons-annotations-5.0.3.Final.jar \
-	#	$(URL)/org/hibernate/hibernate-commons-annotations/5.0.3.Final/hibernate-commons-annotations-5.0.3.Final.jar
-
 	@test -f $(LIB)/icefaces-4.3.0.jar || curl -L -o $(LIB)/icefaces-4.3.0.jar \
 		$(URL)/org/icefaces/icefaces/4.3.0/icefaces-4.3.0.jar
 	@test -f $(LIB)/javassist-3.22.0-GA.jar || curl -L -o $(LIB)/javassist-3.22.0-GA.jar \
@@ -75,4 +77,9 @@ download-libs:
 		$(URL)/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.1.1.Final/jboss-transaction-api_1.2_spec-1.1.1.Final.jar
 	@test -f $(LIB)/jandex-2.0.3.Final.jar || curl -L -o $(LIB)/jandex-2.0.3.Final.jar \
 		$(URL)/org/jboss/jandex/2.0.3.Final/jandex-2.0.3.Final.jar
-	cp -r $(USR_LIB)/* $(LIB)
+	cp -r $(USR_LIB)/* $(LIB) # dom4j-whatever and hibernate-bla-bla-bla are probably not from maven central so lets just copy them
+	@#dependencies for test
+	@test -f $(LIB)/junit-4.13.2.jar || curl -L -o $(LIB)/junit-4.13.2.jar \
+		$(URL)/junit/junit/4.13.2/junit-4.13.2.jar
+	@test -f $(LIB)/hamcrest-core-1.3.jar || curl -L -o $(LIB)/hamcrest-core-1.3.jar \
+		$(URL)/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar

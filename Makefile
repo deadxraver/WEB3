@@ -1,4 +1,4 @@
-.PHONY: clean download-libs help
+.PHONY: clean download-libs help test
 
 APP_NAME=app.war
 
@@ -16,6 +16,8 @@ HOME_DIR=$(PWD)
 JAVAC_FLAGS=--release $(TARGET_VERSION)
 TARGET=$(HOME_DIR)/build
 SOURCE=$(HOME_DIR)/src/main/java/db/*.java $(HOME_DIR)/src/main/java/*.java
+TEST_SOURCE=$(HOME_DIR)/src/test/java
+TEST_TARGET=$(TARGET)/test
 WEBAPP=$(HOME_DIR)/src/main/webapp
 LIB=$(TARGET)/lib
 USR_LIB=$(HOME_DIR)/usr_lib
@@ -47,17 +49,22 @@ build: compile
 	$(JAR) $(JAR_FLAGS) $(WAR_TARGET)/$(APP_NAME) -C $(WAR_COMPONENTS) . && echo "Successfully built to " $(WAR_TARGET)/$(APP_NAME)
 
 music: build
-	@echo "🎵"
+	@echo -n "🎵"
 	@sleep 1
-	@echo "🎵"
+	@echo -n "🎵"
 	@sleep 1
 	@echo "🎵"
 
 scp: build
 	scp -P $(SCP_PORT) $(WAR_TARGET)/$(APP_NAME) $(SCP_USERNAME)@$(SCP_SERVER):$(SPC_PATH)/$(APP_NAME)
 
-test: build
-	# TODO: 
+
+build-test:	build download-libs
+	mkdir -p $(TEST_TARGET)
+	$(JAVAC) -d $(TEST_TARGET) $(TEST_SOURCE)/* -cp $(LIB)/\*
+
+test:	build-test
+	$(JAVA) -cp $(TEST_TARGET):$(LIB)/\* org.junit.runner.JUnitCore TestTest
 
 download-libs:
 	mkdir -p $(LIB)

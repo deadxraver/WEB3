@@ -99,23 +99,20 @@ diff:
 		echo '$(DIFF_FILE): no such file or it is empty, please set DIFF_FILE variable in Makefile correctly'
 
 report:	$(SOURCE) $(TEST_SOURCE)
-	touch $(HOME_DIR)/report
-	make test REPORT_PATH=$(HOME_DIR)/report
-	@echo "Successfully written to $(HOME_DIR)/report"
-	git add $(HOME_DIR)
-	git commit -m "Successful test"
+	make test REPORT_PATH=$(HOME_DIR)/report && echo "Successfully written to $(HOME_DIR)/report" \
+		&& git add $(HOME_DIR) && git commit -m "Successful test" || echo 'not all tests pass!'
 
 scp: build
 	scp -P $(SCP_PORT) $(WAR_TARGET)/$(APP_NAME) $(SCP_USERNAME)@$(SCP_SERVER):$(SPC_PATH)/$(APP_NAME)
 
 
-build-test:	build download-libs
+build-test:	build download-libs $(TEST_SOURCE) $(SOURCE)
 	mkdir -p $(TEST_TARGET)
 	$(JAVAC) -d $(TEST_TARGET) $(TEST_SOURCE)/* -cp $(CLASS_PATH):$(LIB)/\*
 
 test:	build-test
 	$(JAVA) -cp $(TEST_TARGET):$(CLASS_PATH):$(LIB)/\* \
-		org.junit.runner.JUnitCore $$(ls -1 $(TEST_TARGET) | sed 's/\.class//') > $(REPORT_PATH)
+		org.junit.runner.JUnitCore $$(ls -1 $(TEST_TARGET) | sed 's/\.class//') 1> $(REPORT_PATH)
 
 
 download-libs:

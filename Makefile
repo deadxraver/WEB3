@@ -33,6 +33,12 @@ help:
 	@echo " - build"
 	@echo " - music"
 	@echo " - scp"
+	@echo " - test"
+	@echo " - native2ascii"
+	@echo " - xml"
+	@echo " - alt"
+	@echo " - diff"
+	@echo " - report"
 
 clean:
 	rm -rf $(TARGET)
@@ -54,6 +60,21 @@ music: build
 	@echo -n "🎵"
 	@sleep 1
 	@echo "🎵"
+
+native2ascii:	$(SOURCE)
+	@echo "not ready yet" # TODO:
+
+xml:
+	@echo "not ready yet" # TODO:
+
+alt:
+	@echo "not ready yet" # TODO:
+
+diff:
+	@echo "not ready yet" # TODO:
+
+report:
+	@echo "not ready yet" # TODO:
 
 scp: build
 	scp -P $(SCP_PORT) $(WAR_TARGET)/$(APP_NAME) $(SCP_USERNAME)@$(SCP_SERVER):$(SPC_PATH)/$(APP_NAME)

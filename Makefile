@@ -26,6 +26,8 @@ WAR_COMPONENTS=$(TARGET)/war/components
 WAR_TARGET=$(TARGET)/war/target
 URL=https://repo1.maven.org/maven2
 
+DIFF_FILE=diff.txt
+
 help:
 	@echo "Available targets:"
 	@echo " - clean"
@@ -69,10 +71,15 @@ xml:
 	@echo "not ready yet" # TODO:
 
 alt:
-	@echo "not ready yet" # TODO:
+	sed -s 
 
 diff:
-	@echo "not ready yet" # TODO:
+	@(test -e $(DIFF_FILE)) && \
+		([ -s $(DIFF_FILE) ]) && \
+		(git diff | grep -E $$(cat $(DIFF_FILE)) > /dev/null && \
+		echo "there are changes in files from $(DIFF_FILE)" || \
+		(echo 'OK, committing...' && git add . && git commit -m 'auto-commit from diff task') ) || \
+		echo '$(DIFF_FILE): no such file or it is empty, please set DIFF_FILE variable in Makefile correctly'
 
 report:
 	@echo "not ready yet" # TODO:

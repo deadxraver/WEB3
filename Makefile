@@ -71,7 +71,8 @@ xml:
 	@echo "not ready yet" # TODO:
 
 alt:
-	sed -s 
+	#TODO: 
+	#sed -s 
 
 diff:
 	@(test -e $(DIFF_FILE)) && \

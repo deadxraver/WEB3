@@ -2,6 +2,9 @@
 
 APP_NAME=app.war
 
+DIFF_FILE=diff.txt
+ALT_FILE=alt.txt
+
 SCP_SERVER=se.ifmo.ru
 SCP_USERNAME=s409853
 SPC_PATH=~/wildfly-20.0.1.Final/standalone/deployments
@@ -15,7 +18,11 @@ JAR_FLAGS=-cvf
 HOME_DIR=$(PWD)
 JAVAC_FLAGS=--release $(TARGET_VERSION)
 TARGET=$(HOME_DIR)/build
-SOURCE=$(HOME_DIR)/src/main/java/db/*.java $(HOME_DIR)/src/main/java/*.java
+ALT_TARGET=$(TARGET)/alt
+SOURCE_DIR=$(HOME_DIR)/src
+SOURCE=$(SOURCE_DIR)/main/java/db/*.java $(SOURCE_DIR)/main/java/*.java
+ALT_SOURCE_DIR=$(HOME_DIR)/srcalt
+ALT_SOURCE=$(ALT_SOURCE_DIR)/main/java/db/*.java $(ALT_SOURCE_DIR)/main/java/*.java
 TEST_SOURCE=$(HOME_DIR)/src/test/java
 TEST_TARGET=$(TARGET)/test
 WEBAPP=$(HOME_DIR)/src/main/webapp
@@ -25,8 +32,6 @@ CLASS_PATH=$(TARGET)/classes
 WAR_COMPONENTS=$(TARGET)/war/components
 WAR_TARGET=$(TARGET)/war/target
 URL=https://repo1.maven.org/maven2
-
-DIFF_FILE=diff.txt
 
 help:
 	@echo "Available targets:"
@@ -43,7 +48,7 @@ help:
 	@echo " - report"
 
 clean:
-	rm -rf $(TARGET)
+	rm -rf $(TARGET) $(ALT_SOURCE_DIR)
 
 compile: $(SOURCE) download-libs
 	$(JAVAC) $(JAVAC_FLAGS) $(SOURCE) -d $(CLASS_PATH) -cp $(LIB)/\*
@@ -71,8 +76,17 @@ xml:
 	@echo "not ready yet" # TODO:
 
 alt:
-	#TODO: 
-	#sed -s 
+	@test -f $(ALT_FILE) || echo '$(ALT_FILE): no such file, create it or set the ALT_FILE in Makefile'
+	@test -f $(ALT_FILE)
+	@[ -s $(ALT_FILE) ] || echo 'warning! $(ALT_FILE) is empty!'
+	mkdir -p $(ALT_SOURCE_DIR)
+	cp -r $(SOURCE_DIR)/* $(ALT_SOURCE_DIR)/
+	cd $(ALT_SOURCE_DIR)
+	find . -type f -depth -exec sed -i "s/$$(cat $(ALT_FILE))/g" {} +
+	#find . -iname "*$$(cat $(ALT_FILE) | grep -o '^[^/]*')*" \
+	#	-exec rename $$(cat $(ALT_FILE) | grep -o '^[^/]*') $$(grep '/' $(ALT_FILE) | cut -d'/' -f2-) '{}' \;
+	cd $(HOME_DIR)
+	make build SOURCE=$(ALT_SOURCE) TARGET=$(ALT_TARGET)
 
 diff:
 	@(test -e $(DIFF_FILE)) && \

@@ -24,3 +24,4 @@ public class TableBean implements Serializable {
 		dbBean.addDot(dot);
 	}
 }
+

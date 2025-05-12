@@ -35,6 +35,7 @@ WAR_TARGET=$(TARGET)/war/target
 URL=https://repo1.maven.org/maven2
 PYTHON=python3.12
 UTIL=$(HOME_DIR)/util
+REPORT_PATH=/dev/stdout
 
 help:
 	@echo "Available targets:"
@@ -98,7 +99,11 @@ diff:
 		echo '$(DIFF_FILE): no such file or it is empty, please set DIFF_FILE variable in Makefile correctly'
 
 report:
-	@echo "not ready yet" # TODO:
+	touch $(HOME_DIR)/report
+	make test REPORT_PATH=$(HOME_DIR)/report
+	@echo "Successfully written to $(HOME_DIR)/report"
+	git add $(HOME_DIR)
+	git commit -m "Successful test"
 
 scp: build
 	scp -P $(SCP_PORT) $(WAR_TARGET)/$(APP_NAME) $(SCP_USERNAME)@$(SCP_SERVER):$(SPC_PATH)/$(APP_NAME)
@@ -109,7 +114,8 @@ build-test:	build download-libs
 	$(JAVAC) -d $(TEST_TARGET) $(TEST_SOURCE)/* -cp $(CLASS_PATH):$(LIB)/\*
 
 test:	build-test
-	$(JAVA) -cp $(TEST_TARGET):$(CLASS_PATH):$(LIB)/\* org.junit.runner.JUnitCore $$(ls -1 $(TEST_TARGET) | sed 's/\.class//')
+	$(JAVA) -cp $(TEST_TARGET):$(CLASS_PATH):$(LIB)/\* \
+		org.junit.runner.JUnitCore $$(ls -1 $(TEST_TARGET) | sed 's/\.class//') > $(REPORT_PATH)
 
 
 download-libs:
@@ -152,3 +158,5 @@ download-libs:
 		$(URL)/junit/junit/4.13.2/junit-4.13.2.jar
 	@test -f $(LIB)/hamcrest-core-1.3.jar || curl -L -o $(LIB)/hamcrest-core-1.3.jar \
 		$(URL)/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+	@test -f $(LIB)/ant-junit-1.10.12.jar || curl -L -o $(LIB)/ant-junit-1.10.12.jar \
+		$(URL)/org/apache/ant/ant-junit/1.10.12/ant-junit-1.10.12.jar

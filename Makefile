@@ -27,6 +27,7 @@ TEST_SOURCE=$(HOME_DIR)/src/test/java
 TEST_TARGET=$(TARGET)/test
 WEBAPP=$(HOME_DIR)/src/main/webapp
 LIB=$(TARGET)/lib
+RESOURCES=$(HOME_DIR)/src/main/resources
 USR_LIB=$(HOME_DIR)/usr_lib
 CLASS_PATH=$(TARGET)/classes
 WAR_COMPONENTS=$(TARGET)/war/components
@@ -48,7 +49,7 @@ help:
 	@echo " - report"
 
 clean:
-	rm -rf $(TARGET) $(ALT_SOURCE_DIR)
+	rm -rf $(TARGET) $(ALT_SOURCE_DIR) $(RESOURCES)/localization_copy.properties
 
 compile: $(SOURCE) download-libs
 	$(JAVAC) $(JAVAC_FLAGS) $(SOURCE) -d $(CLASS_PATH) -cp $(LIB)/\*
@@ -70,7 +71,7 @@ music: build
 	@echo "🎵"
 
 native2ascii:	$(SOURCE)
-	@echo "not ready yet" # TODO:
+	native2ascii $(RESOURCES)/localization.properties $(RESOURCES)/localization_copy.properties
 
 xml:
 	@echo "not ready yet" # TODO:

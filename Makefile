@@ -1,4 +1,4 @@
-.PHONY: clean download-libs help test
+.PHONY: clean download-libs help test xml
 
 APP_NAME=app.war
 
@@ -33,6 +33,8 @@ CLASS_PATH=$(TARGET)/classes
 WAR_COMPONENTS=$(TARGET)/war/components
 WAR_TARGET=$(TARGET)/war/target
 URL=https://repo1.maven.org/maven2
+PYTHON=python3.12
+UTIL=$(HOME_DIR)/util
 
 help:
 	@echo "Available targets:"
@@ -74,7 +76,7 @@ native2ascii:	$(SOURCE)
 	native2ascii $(RESOURCES)/localization.properties $(RESOURCES)/localization_copy.properties
 
 xml:
-	@echo "not ready yet" # TODO:
+	$(PYTHON) $(UTIL)/xml_validator.py $(HOME_DIR)/src
 
 alt:
 	@test -f $(ALT_FILE) || echo '$(ALT_FILE): no such file, create it or set the ALT_FILE in Makefile'

@@ -55,6 +55,7 @@ build: compile
 	$(JAR) $(JAR_FLAGS) $(WAR_TARGET)/$(APP_NAME) -C $(WAR_COMPONENTS) . && echo "Successfully built to " $(WAR_TARGET)/$(APP_NAME)
 
 music: build
+	@echo "Some music now!"
 	@echo -n "🎵"
 	@sleep 1
 	@echo -n "🎵"

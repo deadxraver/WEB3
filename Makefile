@@ -82,10 +82,10 @@ scp: build
 
 build-test:	build download-libs
 	mkdir -p $(TEST_TARGET)
-	$(JAVAC) -d $(TEST_TARGET) $(TEST_SOURCE)/* -cp $(LIB)/\*
+	$(JAVAC) -d $(TEST_TARGET) $(TEST_SOURCE)/* -cp $(CLASS_PATH):$(LIB)/\*
 
 test:	build-test
-	$(JAVA) -cp $(TEST_TARGET):$(LIB)/\* org.junit.runner.JUnitCore TestTest
+	$(JAVA) -cp $(TEST_TARGET):$(CLASS_PATH):$(LIB)/\* org.junit.runner.JUnitCore SetTest
 
 download-libs:
 	mkdir -p $(LIB)

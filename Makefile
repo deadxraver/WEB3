@@ -85,7 +85,8 @@ build-test:	build download-libs
 	$(JAVAC) -d $(TEST_TARGET) $(TEST_SOURCE)/* -cp $(CLASS_PATH):$(LIB)/\*
 
 test:	build-test
-	$(JAVA) -cp $(TEST_TARGET):$(CLASS_PATH):$(LIB)/\* org.junit.runner.JUnitCore SetTest
+	$(JAVA) -cp $(TEST_TARGET):$(CLASS_PATH):$(LIB)/\* org.junit.runner.JUnitCore $$(ls -1 $(TEST_TARGET) | sed 's/\.class//')
+
 
 download-libs:
 	mkdir -p $(LIB)

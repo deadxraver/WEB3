@@ -81,11 +81,9 @@ alt:
 	@[ -s $(ALT_FILE) ] || echo 'warning! $(ALT_FILE) is empty!'
 	mkdir -p $(ALT_SOURCE_DIR)
 	cp -r $(SOURCE_DIR)/* $(ALT_SOURCE_DIR)/
-	cd $(ALT_SOURCE_DIR)
-	find . -type f -depth -exec sed -i "s/$$(cat $(ALT_FILE))/g" {} +
-	#find . -iname "*$$(cat $(ALT_FILE) | grep -o '^[^/]*')*" \
-	#	-exec rename $$(cat $(ALT_FILE) | grep -o '^[^/]*') $$(grep '/' $(ALT_FILE) | cut -d'/' -f2-) '{}' \;
-	cd $(HOME_DIR)
+	find $(ALT_SOURCE_DIR) -type f -depth -exec sed -i "s/$$(cat $(ALT_FILE))/g" {} +
+	find $(ALT_SOURCE_DIR) -iname "*$$(cat $(ALT_FILE) | grep -o '^[^/]*')*" \
+		-exec rename $$(cat $(ALT_FILE) | grep -o '^[^/]*') $$(grep '/' $(ALT_FILE) | cut -d'/' -f2-) '{}' \;
 	make build SOURCE=$(ALT_SOURCE) TARGET=$(ALT_TARGET)
 
 diff:

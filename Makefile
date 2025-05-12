@@ -98,7 +98,7 @@ diff:
 		(echo 'OK, committing...' && git add . && git commit -m 'auto-commit from diff task') ) || \
 		echo '$(DIFF_FILE): no such file or it is empty, please set DIFF_FILE variable in Makefile correctly'
 
-report:
+report:	$(SOURCE) $(TEST_SOURCE)
 	touch $(HOME_DIR)/report
 	make test REPORT_PATH=$(HOME_DIR)/report
 	@echo "Successfully written to $(HOME_DIR)/report"

@@ -4,6 +4,7 @@ APP_NAME=app.war
 
 DIFF_FILE=diff.txt
 ALT_FILE=alt.txt
+ALT_FILE1=alt1.txt
 
 SCP_SERVER=se.ifmo.ru
 SCP_USERNAME=s409853
@@ -86,8 +87,10 @@ alt:
 	mkdir -p $(ALT_SOURCE_DIR)
 	cp -r $(SOURCE_DIR)/* $(ALT_SOURCE_DIR)/
 	find $(ALT_SOURCE_DIR) -type f -depth -exec sed -i "s/$$(cat $(ALT_FILE))/g" {} +
-	find $(ALT_SOURCE_DIR) -iname "*$$(cat $(ALT_FILE) | grep -o '^[^/]*')*" \
-		-exec rename $$(cat $(ALT_FILE) | grep -o '^[^/]*') $$(grep '/' $(ALT_FILE) | cut -d'/' -f2-) '{}' \;
+#	find $(ALT_SOURCE_DIR) -iname "*$$(cat $(ALT_FILE) | grep -o '^[^/]*')*" \
+#		-exec rename $$(cat $(ALT_FILE) | grep -o '^[^/]*') $$(grep '/' $(ALT_FILE) | cut -d'/' -f2-) '{}' \;
+	cd $(ALT_SOURCE_DIR)/main/java && mv $$(cat $(HOME_DIR)/$(ALT_FILE1)) || echo ''
+	cd $(ALT_SOURCE_DIR)/main/java/db && mv $$(cat $(HOME_DIR)/$(ALT_FILE1)) || echo ''
 	make build SOURCE=$(ALT_SOURCE) TARGET=$(ALT_TARGET)
 
 diff:

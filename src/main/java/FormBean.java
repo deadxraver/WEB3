@@ -15,6 +15,9 @@ public class FormBean implements Serializable {
 	@ManagedProperty(value = "#{missBean}")
 	private MissBean missBean;
 
+	@ManagedProperty(value = "#{squareBean}")
+	private SquareBean squareBean;
+
 	private double x = 0;
 	private double y = 0;
 	private double r = 8;
@@ -77,6 +80,10 @@ public class FormBean implements Serializable {
 		this.hiddenY = hiddenY;
 	}
 
+	public void updateSquare() {
+		squareBean.calculateSquare(r / 4);
+	}
+
 	public void submit() {
 		double startTime = System.currentTimeMillis();
 		String currentTime = LocalDateTime.now().toLocalDate().toString();
@@ -106,5 +113,13 @@ public class FormBean implements Serializable {
 		r *= 4;
 		System.out.println(dot);
 		tableBean.addDot(dot);
+	}
+
+	public SquareBean getSquareBean() {
+		return squareBean;
+	}
+
+	public void setSquareBean(SquareBean squareBean) {
+		this.squareBean = squareBean;
 	}
 }

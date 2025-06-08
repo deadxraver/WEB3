@@ -38,6 +38,7 @@
                 <td>
                     <ace:sliderEntry id="r" value="#{bean.r}" min="8" max="20" stepPercent="8.333333333333333"
                                      onSlideEnd="handleRChange()">
+                        <ace:ajax event="slideEnd" execute="@this" listener="#{bean.updateSquare}"/>
                     </ace:sliderEntry>
                     2-5
                 </td>
@@ -50,6 +51,8 @@
             </tr>
         </table>
         <h:outputText value="#{missBean.msg}" style="color: red"/>
+        <p/>
+        <h:outputText value="Площадь фигуры: #{squareBean.square}"/>
         <div class="image-container" style="text-align: center">
             <h3>График области</h3>
             <canvas id="canvas" width="450px" height="450px">

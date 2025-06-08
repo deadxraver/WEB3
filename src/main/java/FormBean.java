@@ -12,11 +12,22 @@ public class FormBean implements Serializable {
 	@ManagedProperty(value = "#{tableBean}")
 	private TableBean tableBean;
 
+	@ManagedProperty(value = "#{missBean}")
+	private MissBean missBean;
+
 	private double x = 0;
 	private double y = 0;
 	private double r = 8;
 	private double hiddenX = -1000;
 	private double hiddenY = -1000;
+
+	public MissBean getMissBean() {
+		return missBean;
+	}
+
+	public void setMissBean(MissBean missBean) {
+		this.missBean = missBean;
+	}
 
 	public TableBean getTableBean() {
 		return tableBean;
@@ -74,6 +85,7 @@ public class FormBean implements Serializable {
 			System.out.println("X: " + hiddenX + ", Y: " + hiddenY + ", R: " + r);
 			if (Validator.validateAll(hiddenX, hiddenY, r)) {
 				boolean res = new Result(hiddenX, hiddenY, r).resultAll();
+				missBean.update(res);
 				Dot dot = new Dot(hiddenX, hiddenY, r, res, System.currentTimeMillis() - startTime, currentTime);
 				r *= 4;
 				System.out.println(dot);
@@ -89,6 +101,7 @@ public class FormBean implements Serializable {
 			return;
 		}
 		boolean res = new Result(x, y, r).resultAll();
+		missBean.update(res);
 		Dot dot = new Dot(x, y, r, res, System.currentTimeMillis() - startTime, currentTime);
 		r *= 4;
 		System.out.println(dot);

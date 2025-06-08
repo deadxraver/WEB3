@@ -49,8 +49,7 @@
                 </td>
             </tr>
         </table>
-
-
+        <h:outputText value="#{missBean.msg}" style="color: red"/>
         <div class="image-container" style="text-align: center">
             <h3>График области</h3>
             <canvas id="canvas" width="450px" height="450px">
@@ -95,7 +94,8 @@
                        validatorMessage="Значение Y должно быть от -5 до 3"><f:validateDoubleRange minimum="-5"
                                                                                                    maximum="3"/></h:inputHidden>
         <h:inputHidden id="r_hid" value="#{bean.r}"/>
-        <h:commandButton id="submit_hid" action='#{bean.submit}' onclick="window.canvasDrawer.drawLast()" style="display: none"/>
+        <h:commandButton id="submit_hid" action='#{bean.submit}' onclick="window.canvasDrawer.drawLast()"
+                         style="display: none"/>
     </h:form>
 </h:body>
 </html>

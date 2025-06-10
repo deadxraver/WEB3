@@ -22,14 +22,17 @@ public class SquareBean implements SuperInterfacePlanet, Serializable {
 		}
 	}
 
+	@Override
 	public void calculateSquare(double r) {
 		this.square = r * r / 2 * 1.5 + Math.PI * r * r / 4;
 	}
 
+	@Override
 	public double getSquare() {
 		return square;
 	}
 
+	@Override
 	public void setSquare(double square) {
 		this.square = square;
 	}

@@ -1,3 +1,5 @@
+package opishechka.planet;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.management.MBeanServer;

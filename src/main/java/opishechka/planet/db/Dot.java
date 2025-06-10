@@ -1,4 +1,4 @@
-package db;
+package opishechka.planet.db;
 
 import javax.persistence.*;
 

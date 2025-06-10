@@ -1,4 +1,6 @@
-import db.Dot;
+package opishechka.planet;
+
+import opishechka.planet.db.Dot;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;

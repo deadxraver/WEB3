@@ -1,4 +1,4 @@
-package db;
+package opishechka.planet.db;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;

@@ -1,3 +1,5 @@
+package opishechka.planet;
+
 public class Result {
 	private final double x, y, r;
 

@@ -1,3 +1,5 @@
+package opishechka.planet;
+
 public class Validator {
 	private static boolean validateX(double x) {
 		return x >= -2 && x <= 2;

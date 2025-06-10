@@ -1,4 +1,4 @@
-package db;
+package opishechka.planet.db;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -27,13 +27,13 @@ public class PersistenceManager {
 			try (InputStream input = PersistenceManager.class.getClassLoader().getResourceAsStream("db.properties")) {
 				Properties properties = new Properties();
 				if (input == null) {
-					throw new IllegalArgumentException("Sorry, unable to find db.properties");
+					throw new IllegalArgumentException("Sorry, unable to find opishechka.planet.db.properties");
 				}
 				properties.load(input);
 
 				Map<String, String> persistenceProps = new HashMap<>();
-				persistenceProps.put("jakarta.persistence.jdbc.user", properties.getProperty("db.username"));
-				persistenceProps.put("jakarta.persistence.jdbc.password", properties.getProperty("db.password"));
+				persistenceProps.put("jakarta.persistence.jdbc.user", properties.getProperty("opishechka.planet.db.username"));
+				persistenceProps.put("jakarta.persistence.jdbc.password", properties.getProperty("opishechka.planet.db.password"));
 
 				emf = Persistence.createEntityManagerFactory("Dot", persistenceProps);
 			} catch (IOException ex) {

@@ -1,3 +1,5 @@
+package opishechka.planet;
+
 import javax.management.MXBean;
 
 @MXBean

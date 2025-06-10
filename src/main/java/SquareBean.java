@@ -15,7 +15,7 @@ public class SquareBean implements SuperInterfacePlanet, Serializable {
 	public void registerMBean() {
 		try {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-			ObjectName name = new ObjectName("com.papa.johns:type=squareBean");
+			ObjectName name = new ObjectName("opishechka.planet:type=squareBean");
 			mbs.registerMBean(this, name);
 		} catch (Exception e) {
 			System.err.println("Failed to register MBean: squareBean");

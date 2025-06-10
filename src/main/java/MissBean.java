@@ -16,7 +16,7 @@ public class MissBean implements SuperInterfacePlanet, Serializable {
 	public void registerMBean() {
 		try {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-			ObjectName name = new ObjectName("com.papa.johns:type=missBean");
+			ObjectName name = new ObjectName("opishechka.planet:type=missBean");
 			mbs.registerMBean(this, name);
 		} catch (Exception e) {
 			System.err.println("Failed to register MBean: missBean");
